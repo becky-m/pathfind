@@ -32,6 +32,8 @@
     grid: [],
     nodes: [],
     map: [],
+    frontier: [],
+    visited: [],
     lastFrame: Date.now()
   };
     
@@ -90,12 +92,11 @@
         }
     }
     
-    function CNode(nodeVal, x, y, width, height, fill) {
-            internal = {
+    function CNode(nodeVal, mX, mY, mWidth, mHeight, fill, visited) {
+        var visited = false, nodeValue = nodeVal, x = mX, y = mY, width = mWidth, height = mHeight, 
+        internal = {
             render: function (g) {
                 
-
-
             g.save();
             g.translate(x, y);
 
@@ -114,12 +115,64 @@
             g.fillText(nodeVal, x+20, y+20);
             g.restore();
 
+            }, 
+            setColor: function(g, color) {
+                g.fillStyle = color; 
+                g.fillRect(x, y, width, height); 
+            },
+            getX: function() {
+                return x; 
+            },
+            getY: function() {
+                return y;     
+            },
+            getWidth: function() {
+                return width;    
+            }, 
+            getHeight: function() {
+                return height;     
+            },
+            returnNode: function() {
+                return nodeValue; 
+            }, 
+            setVisited: function(nodeVisited) {
+                visited = nodeVisited; 
+                data.visited[nodeValue] = true; 
+                console.log(nodeValue);
+                return visited; 
+            },
+            getVisited: function() {
+              return visited;   
             }
         };
         return {
-            render: internal.render
+            render: internal.render, 
+            setVisited: internal.setVisited, 
+            getVisited: internal.getVisited, 
+            setColor: internal.setColor, 
+            getX: internal.getX, 
+            getY: internal.getY, 
+            getWidth: internal.getWidth, 
+            getHeight: internal.getHeight
         }
  }
+    
+function inherit(proto) {
+    CNode.prototype = proto;
+    return new CNode();
+}
+    
+function CFrontierToken(nodeVal, mX, mY, mWidth, mHeight, fill, visited) {
+    var internal = {
+        test: function() {
+            return 'test';
+        }
+    };
+    return {
+        test: internal.test
+    }
+
+}
 
 
   function luminousity(hex, percent){
@@ -169,7 +222,7 @@
     data.canvas = document.getElementById('pathfind');
     data.graphics = data.canvas.getContext('2d');
       
-      
+    //$.extend( CNode, CFrontierToken );  //CFrontierToken should inherit the basic functions of CNode.
     data.grid.push(CGrid(0, 0, 400, 400, 'white'));
       
     for(nodeX = 0; nodeX < 10; nodeX++) {   
@@ -180,15 +233,25 @@
 
             trueColor = findIfInArray(map, nodeVal);
             //console.log(trueColor);
-            data.nodes.push(CNode(nodeVal, nodeX*20, nodeY*20, 40, 40, trueColor));
+            data.nodes.push(CNode(nodeVal, nodeX*20, nodeY*20, 40, 40, trueColor, false));
+            
+            var obj = inherit(CFrontierToken(nodeVal, nodeX*20, nodeY*20, 40, 40, trueColor, false));
+            data.frontier.push(obj);
             //renderText(data.graphics, nodeVal, 'red', '80px Stalemate', nodeX*20, nodeY*20); 
-
-
         }
     }
+    
+    //visited[11] = true; 
       
+    data.nodes[11].setVisited(true); 
+    //data.nodes[11].setColor(data.graphics, 'green');
+    data.frontier[17].setVisited(true);  
 
-      
+    data.frontier[17].test = function() {
+        return 'test';
+    };
+    
+    console.log(data.frontier[17]);
     loop(data.graphics);
       
   }
