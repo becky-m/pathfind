@@ -46,11 +46,11 @@
 	
 	<!-- Load classes and scripts -->
 		
-		<script src="/js/pathfinder/CGrid.js"></script>
-		<script src="/js/pathfinder/CNode.js"></script>
-		<script src="/js/pathfinder/CPlayerNodes.js"></script>
-		<script src="/js/pathfinder/CFrontier.js"></script>
-		<script src="/js/pathfinder/main.js"></script>
+		<script src="/resources/views/eftersom/projects/pathfind/js/pathfinder/CGrid.js"></script>
+		<script src="/resources/views/eftersom/projects/pathfind/js/pathfinder/CNode.js"></script>
+		<script src="/resources/views/eftersom/projects/pathfind/js/pathfinder/CPlayerNodes.js"></script>
+		<script src="/resources/views/eftersom/projects/pathfind/js/pathfinder/CFrontier.js"></script>
+		<script src="/resources/views/eftersom/projects/pathfind/js/pathfinder/main.js"></script>
 	
 	<!-- End load classes and scripts -->
 @stop

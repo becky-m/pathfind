@@ -29,7 +29,7 @@ var CNode = {}
 		    g.fill();
 		    g.fillStyle = "black";
 		    g.font = "8pt sans-serif";
-		    g.fillText(nodeVal, x+20, y+20);
+		    g.fillText(nodeVal, x+15, y+20);
 		    g.restore();
 		
 		    }, 

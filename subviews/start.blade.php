@@ -1,0 +1,1 @@
+<a style="float: right;" id="startPathfind"><button class="btn btn-light home-page-btn">Start</button></a>
